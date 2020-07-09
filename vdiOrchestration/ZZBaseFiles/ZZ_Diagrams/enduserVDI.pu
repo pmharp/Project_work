@@ -1,0 +1,33 @@
+@startwbs
+* End User VDI
+** ./Day0_Initialsetup.ps1 -switch
+*** -Day1
+**** Creates TF and Inspec folders
+*** -Day2
+**** Creates the folder and file structure for a specific environment for Day2 runs
+*** -resetTF
+**** Resets Terraform init config
+*** -resetAll
+**** Reverts entire folder structure back to original state
+*** -validateIAC
+**** Runs IaC_EndUser_Inspec checks against current machine
+** ./Day1_FileMods.ps1 -switch
+*** -makeFiles
+**** Creates RSO .tf files for each server needed
+*** -modTF
+**** Takes user input to modify terraform.tfvars
+*** -modS3
+**** Configures AWS profile on local machine
+*** -UAT
+**** Designed for IaC and EARs Engineers for provider testing
+*** -resetAll
+**** Reverts entire folder structure back to day0_initialsetup state
+** ./Day1_Orchestration.ps1 -switch
+*** -RunTF
+**** Runs Terraform commands for TF builds
+*** -inspec
+**** Creates Inpsec files for TDI runs
+** ./Day1_RunInspecTests.ps1 -switch
+*** -inspec
+**** Runs inpsec tests for provisioned servers
+@endwbs

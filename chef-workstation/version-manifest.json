@@ -1,0 +1,393 @@
+{
+  "manifest_format": 2,
+  "software": {
+    "preparation": {
+      "locked_version": "1.0.0",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "1.0.0",
+      "license": "project_license"
+    },
+    "cacerts": {
+      "locked_version": "2019-10-16",
+      "locked_source": {
+        "url": "https://curl.haxx.se/ca/cacert-2019-10-16.pem",
+        "sha256": "5cd8052fcf548ba7e08899d8458a32942bf70450c9af67a0850b4c711804a2e4"
+      },
+      "source_type": "url",
+      "described_version": "2019-10-16",
+      "license": "MPL-2.0"
+    },
+    "openssl": {
+      "locked_version": "1.0.2u",
+      "locked_source": {
+        "url": "https://www.openssl.org/source/openssl-1.0.2u.tar.gz",
+        "extract": "lax_tar",
+        "sha256": "ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16"
+      },
+      "source_type": "url",
+      "described_version": "1.0.2u",
+      "license": "OpenSSL"
+    },
+    "rust": {
+      "locked_version": "1.37.0",
+      "locked_source": {
+        "sha256": "607ecc8c1f9886956ca694a65fcc096bfe00c7776a5e88bb947786e941752e68",
+        "url": "https://static.rust-lang.org/dist/rust-1.37.0-x86_64-pc-windows-gnu.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "1.37.0",
+      "license": "Apache-2.0"
+    },
+    "zlib": {
+      "locked_version": "1.2.11",
+      "locked_source": {
+        "sha256": "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
+        "url": "https://zlib.net/fossils/zlib-1.2.11.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "1.2.11",
+      "license": "Zlib"
+    },
+    "libffi": {
+      "locked_version": "3.2.1",
+      "locked_source": {
+        "md5": "83b89587607e3eb65c70d361f13bab43",
+        "url": "ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "3.2.1",
+      "license": "MIT"
+    },
+    "config_guess": {
+      "locked_version": "84f04b02a7e2fc8eaa9d52deee5f6d57b06fe447",
+      "locked_source": {
+        "git": "https://github.com/chef/config-mirror.git"
+      },
+      "source_type": "git",
+      "described_version": "master",
+      "license": "GPL-3.0 (with exception)"
+    },
+    "libyaml": {
+      "locked_version": "0.1.7",
+      "locked_source": {
+        "sha256": "8088e457264a98ba451a90b8661fcb4f9d6f478f7265d48322a196cec2480729",
+        "url": "https://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "0.1.7",
+      "license": "MIT"
+    },
+    "ruby": {
+      "locked_version": "2.6.5",
+      "locked_source": {
+        "sha256": "66976b716ecc1fd34f9b7c3c2b07bbd37631815377a2e3e85a5b194cfdcbed7d",
+        "url": "https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.5.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "2.6.5",
+      "license": "BSD-2-Clause"
+    },
+    "rubygems": {
+      "locked_version": "3.0.3",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "3.0.3",
+      "license": "MIT"
+    },
+    "bundler": {
+      "locked_version": "1.17.2",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "1.17.2",
+      "license": "MIT"
+    },
+    "liblzma": {
+      "locked_version": "5.2.4",
+      "locked_source": {
+        "sha256": "b512f3b726d3b37b6dc4c8570e137b9311e7552e8ccbab4d39d47ce5f4177145",
+        "url": "http://tukaani.org/xz/xz-5.2.4.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "5.2.4",
+      "license": "Public-Domain"
+    },
+    "libxml2": {
+      "locked_version": "2.9.10",
+      "locked_source": {
+        "sha256": "aafee193ffb8fe0c82d4afef6ef91972cbaf5feea100edc2f262750611b4be1f",
+        "url": "ftp://xmlsoft.org/libxml2/libxml2-2.9.10.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "2.9.10",
+      "license": "MIT"
+    },
+    "libxslt": {
+      "locked_version": "1.1.34",
+      "locked_source": {
+        "sha256": "98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f",
+        "url": "ftp://xmlsoft.org/libxml2/libxslt-1.1.34.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "1.1.34",
+      "license": "MIT"
+    },
+    "bzip2": {
+      "locked_version": "1.0.8",
+      "locked_source": {
+        "sha256": "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269",
+        "url": "https://fossies.org/linux/misc/bzip2-1.0.8.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "1.0.8",
+      "license": "BSD-2-Clause"
+    },
+    "libarchive": {
+      "locked_version": "3.4.1",
+      "locked_source": {
+        "sha256": "fcf87f3ad8db2e4f74f32526dee62dd1fb9894782b0a503a89c9d7a70a235191",
+        "url": "http://www.libarchive.org/downloads/libarchive-3.4.1.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "3.4.1",
+      "license": "BSD-2-Clause"
+    },
+    "libsodium": {
+      "locked_version": "1.0.17",
+      "locked_source": {
+        "sha256": "0cc3dae33e642cc187b5ceb467e0ad0e1b51dcba577de1190e9ffa17766ac2b1",
+        "url": "https://download.libsodium.org/libsodium/releases/libsodium-1.0.17.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "1.0.17",
+      "license": "ISC"
+    },
+    "libzmq": {
+      "locked_version": "4.0.7",
+      "locked_source": {
+        "sha256": "e00b2967e074990d0538361cc79084a0a92892df2c6e7585da34e4c61ee47b03",
+        "url": "http://download.zeromq.org/zeromq-4.0.7.tar.gz"
+      },
+      "source_type": "url",
+      "described_version": "4.0.7",
+      "license": "LGPL-3.0"
+    },
+    "google-protobuf": {
+      "locked_version": "b5fbb742af122b565925987e65c08957739976a7",
+      "locked_source": {
+        "git": "https://github.com/google/protobuf.git"
+      },
+      "source_type": "git",
+      "described_version": "v3.5.2",
+      "license": "project_license"
+    },
+    "go": {
+      "locked_version": "1.13.1",
+      "locked_source": {
+        "sha256": "24cb08d369c1962cccacedc56fd79dc130f623b3b667a316554621ad6ac9b442",
+        "url": "https://dl.google.com/go/go1.13.1.windows-amd64.zip"
+      },
+      "source_type": "url",
+      "described_version": "1.13.1",
+      "license": "BSD-3-Clause"
+    },
+    "git-windows": {
+      "locked_version": "2.25.0",
+      "locked_source": {
+        "url": "https://github.com/git-for-windows/git/releases/download/v2.25.0.windows.1/PortableGit-2.25.0-64-bit.7z.exe",
+        "sha256": "c191542f68e788f614f8a676460281399af0c9d32f19a5d208e9621dd46264fb"
+      },
+      "source_type": "url",
+      "described_version": "2.25.0",
+      "license": "LGPL-2.1"
+    },
+    "delivery-cli": {
+      "locked_version": "4b21ec7e07fdfa82e86aa80e4f2372dde8e368bb",
+      "locked_source": {
+        "git": "https://github.com/chef/delivery-cli.git"
+      },
+      "source_type": "git",
+      "described_version": "0.0.54",
+      "license": "Apache-2.0"
+    },
+    "rust-uninstall": {
+      "locked_version": "0.0.1",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "0.0.1",
+      "license": "project_license"
+    },
+    "gems": {
+      "locked_version": null,
+      "locked_source": {
+        "path": "C:/builds/omnibus/files/../../components/gems"
+      },
+      "source_type": "path",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "gem-version-manifest": {
+      "locked_version": null,
+      "locked_source": {
+        "path": "C:/builds/omnibus/files/gem-version-manifest"
+      },
+      "source_type": "path",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "gem-permissions": {
+      "locked_version": "0.0.1",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "0.0.1",
+      "license": "project_license"
+    },
+    "rubygems-customization": {
+      "locked_version": null,
+      "locked_source": {
+        "path": "C:/builds/omnibus/files/rubygems-customization"
+      },
+      "source_type": "path",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "shebang-cleanup": {
+      "locked_version": "0.0.2",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "0.0.2",
+      "license": "project_license"
+    },
+    "windows-env-customization": {
+      "locked_version": null,
+      "locked_source": {
+        "path": "C:/builds/omnibus/files/env-customization"
+      },
+      "source_type": "path",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "powershell-scripts": {
+      "locked_version": null,
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "version-manifest": {
+      "locked_version": "0.0.1",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "0.0.1",
+      "license": "project_license"
+    },
+    "openssl-customization": {
+      "locked_version": null,
+      "locked_source": {
+        "path": "C:/builds/omnibus/files/openssl-customization"
+      },
+      "source_type": "path",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "ruby-windows-devkit": {
+      "locked_version": "4.7.2-20130224",
+      "locked_source": {
+        "url": "https://dl.bintray.com/oneclick/rubyinstaller/DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe",
+        "md5": "ce99d873c1acc8bffc639bd4e764b849"
+      },
+      "source_type": "url",
+      "described_version": "4.7.2-20130224",
+      "license": "BSD-3-Clause"
+    },
+    "ruby-windows-devkit-bash": {
+      "locked_version": "3.1.23-4-msys-1.0.18",
+      "locked_source": {
+        "url": "https://github.com/chef/msys-bash/releases/download/bash-3.1.23-4-msys-1.0.18/bash-3.1.23-4-msys-1.0.18-bin.tar.lzma",
+        "md5": "22d5dbbd9bd0b3e0380d7a0e79c3108e"
+      },
+      "source_type": "url",
+      "described_version": "3.1.23-4-msys-1.0.18",
+      "license": "GPL-3.0"
+    },
+    "ruby-windows-system-libraries": {
+      "locked_version": "0.0.1",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "0.0.1",
+      "license": "project_license"
+    },
+    "nodejs-binary": {
+      "locked_version": "10.16.3",
+      "locked_source": {
+        "sha256": "19aa47de7c5950d7bd71a1e878013b98d93871cc311d7185f5472e6d3f633146",
+        "url": "https://nodejs.org/dist/v10.16.3/node-v10.16.3-win-x64.zip"
+      },
+      "source_type": "url",
+      "described_version": "10.16.3",
+      "license": "MIT"
+    },
+    "chef-workstation-app": {
+      "locked_version": "3d34ab38cb6d89020764f06dc8d305901da96320",
+      "locked_source": {
+        "git": "https://github.com/chef/chef-workstation-app"
+      },
+      "source_type": "git",
+      "described_version": "v0.1.74",
+      "license": "Apache-2.0"
+    },
+    "uninstall-scripts": {
+      "locked_version": null,
+      "locked_source": {
+        "path": "C:/builds/omnibus/files/uninstall-scripts"
+      },
+      "source_type": "path",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "ruby-cleanup": {
+      "locked_version": "1.0.0",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "1.0.0",
+      "license": "project_license"
+    },
+    "more-ruby-cleanup": {
+      "locked_version": null,
+      "locked_source": {
+        "path": "C:/builds/omnibus/files/more-ruby-cleanup"
+      },
+      "source_type": "path",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "main-chef-wrapper": {
+      "locked_version": null,
+      "locked_source": {
+        "path": "C:/builds/omnibus/files/../../components/main-chef-wrapper"
+      },
+      "source_type": "path",
+      "described_version": null,
+      "license": "project_license"
+    },
+    "chef-analyze": {
+      "locked_version": "42d444e8f3f7ecbf786d5fc505aa97f06ce3763d",
+      "locked_source": {
+        "git": "https://github.com/chef/chef-analyze.git"
+      },
+      "source_type": "git",
+      "described_version": "0.1.76",
+      "license": "Apache-2.0"
+    },
+    "go-uninstall": {
+      "locked_version": "0.0.1",
+      "locked_source": null,
+      "source_type": "project_local",
+      "described_version": "0.0.1",
+      "license": "project_license"
+    }
+  },
+  "build_version": "0.16.33",
+  "build_git_revision": "af0ae8ae5b0e37b863e89cee548fc968fca1492e",
+  "license": "Chef EULA"
+}

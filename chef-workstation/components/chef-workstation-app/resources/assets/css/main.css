@@ -1,0 +1,162 @@
+html {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  cursor: default;
+  font: caption;
+}
+
+body {
+  background-color: Window;
+  color: #393C3D;
+  font-size: 13px;
+}
+
+input, textarea, select, button, img {
+  -webkit-user-drag: none;
+}
+
+h1, h2, h3, h4, h5, h6, div, section, p {
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #005ED4;
+}
+
+section, p {
+  clear: both;
+}
+
+button.primary {
+  height: 20px;
+  min-width: 72px;
+  font-size: 13px;
+  font-weight: 300;
+  border: none;
+  border-radius: 3.5px;
+  background-color: #ffffff;
+  box-shadow: 0 0.5px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+button.secondary {
+  height: 20px;
+  min-width: 67px;
+  margin-right: 8px;
+  padding-top: 1px;
+  font-size: 13px;
+  font-weight: 300;
+  display: inline-block;
+  border: none;
+  border-radius: 3.5px;
+  background-color: #ffffff;
+  box-shadow: 0 0.5px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+button.secondary:disabled {
+  opacity: 0.7;
+  border-radius: 4px;
+  box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.15);
+  background-image: linear-gradient(to bottom, #fefefe, #f3f3f3);
+  border: none;
+}
+
+#logo-alert {
+  background: url('../images/chef-ws-icon-black.svg');
+  height: 64px;
+  width: 64px;
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* top panel and items placed inside */
+#top-panel {
+  padding-top: 15px;
+  display: inline-flex;
+}
+
+#text-block {
+  display: inline-block;
+  font-size: 12px;
+}
+
+.message {
+  max-width: 290px;
+}
+
+.title {
+  font-size: 13px;
+  line-height: 17px;
+  margin-bottom: 9px;
+}
+
+/* bottom panel and contents placed inside */
+#bottom-panel {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+img.logo {
+  float: right;
+  height: 96px;
+  width: 96px;
+}
+
+/* grid */
+div.col {
+  float: left;
+}
+
+div.col-9 {
+  width: 75%;
+}
+
+div.col-3 {
+  width: 25%;
+}
+
+.draggable {
+  -webkit-app-region: drag;
+}
+
+.selectable {
+  -webkit-user-select: auto;
+  cursor: auto;
+}
+
+/* type */
+.extra-large {
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.large {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.small {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+h1.package-detail-title {
+  color: #f18b21;
+}
+
+div.container {
+  padding-top: 15px;
+  padding-left: 30px;
+}
+
+div.grid {
+  padding-top: 40px;
+  padding-bottom: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 15px;
+  grid-auto-rows: 45px;
+}

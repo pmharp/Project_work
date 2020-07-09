@@ -1,0 +1,39 @@
+driver:
+  name: vagrant
+  vagrantfiles:
+      - Vagrantfile.rb
+  vm_hostname: rhel7vm.optum.com
+
+provisioner:
+  name: chef_zero
+### You may wish to disable always updating cookbooks in CI or other testing environments.
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
+
+### Comment/Uncomment to test your cookbook against chef-client 12 vs 13
+  product_name: chef
+  # product_version: 14.5.33
+  product_version: 13.8.5
+  # product_version: 12.21.26
+  channel: stable
+
+### Uncomment this setting to have Test Kitchen fail on any deprecation warning.
+### This is a great way to test your cookbook in anticipation of a new chef-client release/deployment
+  # deprecations_as_errors: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: rhel7-standard
+    driver:
+      box_url: http://repo1.uhc.com/artifactory/chef-binaries/development-images/optum_rhel7_standard_virtualbox.box
+
+suites:
+  - name: default
+    run_list:
+      - recipe[optum_filesystem_wrapper::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:

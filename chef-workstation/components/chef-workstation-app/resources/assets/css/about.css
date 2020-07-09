@@ -1,0 +1,47 @@
+main {
+  margin: 20px 22px 10px;
+}
+
+section {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+section.footer {
+  margin-bottom: 0px;
+}
+
+button.secondary {
+  margin: 0 6px;
+  position: relative;
+  top: 5px;
+}
+
+div.strong-list p {
+  margin-top: 9px;
+}
+
+div.strong-list p strong {
+  margin-right: 6px;
+}
+
+div.p-inline-button p {
+  float: left;
+}
+
+div.p-inline-button {
+  display: inline-block;
+}
+
+a p:parent {
+  margin-bottom: 30px;
+}
+
+section.link-list p:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+#update-channel {
+  text-transform: capitalize;
+}

@@ -1,0 +1,9 @@
+Stage:
+dbses3862 - Primary
+dbses3863 - Secondary
+dbses3864 - DR
+
+Prod:
+dbsep6859 - Primary
+dbsep6860 - Secondary
+dbsep6861 - DR

@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <title>RSpec results</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 80%;
+  }
+  </style>
+  <script type="text/javascript">
+    // <![CDATA[
+
+function addClass(element_id, classname) {
+  document.getElementById(element_id).className += (" " + classname);
+}
+
+function removeClass(element_id, classname) {
+  var elem = document.getElementById(element_id);
+  var classlist = elem.className.replace(classname,'');
+  elem.className = classlist;
+}
+
+function moveProgressBar(percentDone) {
+  document.getElementById("rspec-header").style.width = percentDone +"%";
+}
+
+function makeRed(element_id) {
+  removeClass(element_id, 'passed');
+  removeClass(element_id, 'not_implemented');
+  addClass(element_id,'failed');
+}
+
+function makeYellow(element_id) {
+  var elem = document.getElementById(element_id);
+  if (elem.className.indexOf("failed") == -1) {  // class doesn't includes failed
+    if (elem.className.indexOf("not_implemented") == -1) { // class doesn't include not_implemented
+      removeClass(element_id, 'passed');
+      addClass(element_id,'not_implemented');
+    }
+  }
+}
+
+function apply_filters() {
+  var passed_filter = document.getElementById('passed_checkbox').checked;
+  var failed_filter = document.getElementById('failed_checkbox').checked;
+  var pending_filter = document.getElementById('pending_checkbox').checked;
+
+  assign_display_style("example passed", passed_filter);
+  assign_display_style("example failed", failed_filter);
+  assign_display_style("example not_implemented", pending_filter);
+
+  assign_display_style_for_group("example_group passed", passed_filter);
+  assign_display_style_for_group("example_group not_implemented", pending_filter, pending_filter || passed_filter);
+  assign_display_style_for_group("example_group failed", failed_filter, failed_filter || pending_filter || passed_filter);
+}
+
+function get_display_style(display_flag) {
+  var style_mode = 'none';
+  if (display_flag == true) {
+    style_mode = 'block';
+  }
+  return style_mode;
+}
+
+function assign_display_style(classname, display_flag) {
+  var style_mode = get_display_style(display_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    elems[i].style.display = style_mode;
+  }
+}
+
+function assign_display_style_for_group(classname, display_flag, subgroup_flag) {
+  var display_style_mode = get_display_style(display_flag);
+  var subgroup_style_mode = get_display_style(subgroup_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    var style_mode = display_style_mode;
+    if ((display_flag != subgroup_flag) && (elems[i].getElementsByTagName('dt')[0].innerHTML.indexOf(", ") != -1)) {
+      elems[i].style.display = subgroup_style_mode;
+    } else {
+      elems[i].style.display = display_style_mode;
+    }
+  }
+}
+
+    // ]]>
+  </script>
+  <style type="text/css">
+#rspec-header {
+  background: #65C400; color: #fff; height: 4em;
+}
+
+.rspec-report h1 {
+  margin: 0px 10px 0px 10px;
+  padding: 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  font-size: 1.8em;
+  position: absolute;
+}
+
+#label {
+  float:left;
+}
+
+#display-filters {
+  float:left;
+  padding: 28px 0 0 40%;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+}
+
+#summary {
+  float:right;
+  padding: 5px 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  text-align: right;
+}
+
+#summary p {
+  margin: 0 0 0 2px;
+}
+
+#summary #totals {
+  font-size: 1.2em;
+}
+
+.example_group {
+  margin: 0 10px 5px;
+  background: #fff;
+}
+
+dl {
+  margin: 0; padding: 0 0 5px;
+  font: normal 11px "Lucida Grande", Helvetica, sans-serif;
+}
+
+dt {
+  padding: 3px;
+  background: #65C400;
+  color: #fff;
+  font-weight: bold;
+}
+
+dd {
+  margin: 5px 0 5px 5px;
+  padding: 3px 3px 3px 18px;
+}
+
+dd .duration {
+  padding-left: 5px;
+  text-align: right;
+  right: 0px;
+  float:right;
+}
+
+dd.example.passed {
+  border-left: 5px solid #65C400;
+  border-bottom: 1px solid #65C400;
+  background: #DBFFB4; color: #3D7700;
+}
+
+dd.example.not_implemented {
+  border-left: 5px solid #FAF834;
+  border-bottom: 1px solid #FAF834;
+  background: #FCFB98; color: #131313;
+}
+
+dd.example.pending_fixed {
+  border-left: 5px solid #0000C2;
+  border-bottom: 1px solid #0000C2;
+  color: #0000C2; background: #D3FBFF;
+}
+
+dd.example.failed {
+  border-left: 5px solid #C20000;
+  border-bottom: 1px solid #C20000;
+  color: #C20000; background: #FFFBD3;
+}
+
+
+dt.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+dt.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+dt.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+#rspec-header.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+#rspec-header.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+#rspec-header.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+.backtrace {
+  color: #000;
+  font-size: 12px;
+}
+
+a {
+  color: #BE5C00;
+}
+
+/* Ruby code, style similar to vibrant ink */
+.ruby {
+  font-size: 12px;
+  font-family: monospace;
+  color: white;
+  background-color: black;
+  padding: 0.1em 0 0.2em 0;
+}
+
+.ruby .keyword { color: #FF6600; }
+.ruby .constant { color: #339999; }
+.ruby .attribute { color: white; }
+.ruby .global { color: white; }
+.ruby .module { color: white; }
+.ruby .class { color: white; }
+.ruby .string { color: #66FF00; }
+.ruby .ident { color: white; }
+.ruby .method { color: #FFCC00; }
+.ruby .number { color: white; }
+.ruby .char { color: white; }
+.ruby .comment { color: #9933CC; }
+.ruby .symbol { color: white; }
+.ruby .regex { color: #44B4CC; }
+.ruby .punct { color: white; }
+.ruby .escape { color: white; }
+.ruby .interp { color: white; }
+.ruby .expr { color: white; }
+
+.ruby .offending { background-color: gray; }
+.ruby .linenum {
+  width: 75px;
+  padding: 0.1em 1em 0.2em 0;
+  color: #000000;
+  background-color: #FFFBD3;
+}
+
+  </style>
+</head>
+<body>
+<div class="rspec-report">
+
+<div id="rspec-header">
+  <div id="label">
+    <h1>RSpec Code Examples</h1>
+  </div>
+
+  <div id="display-filters">
+    <input id="passed_checkbox"  name="passed_checkbox"  type="checkbox" checked="checked" onchange="apply_filters()" value="1" /> <label for="passed_checkbox">Passed</label>
+    <input id="failed_checkbox"  name="failed_checkbox"  type="checkbox" checked="checked" onchange="apply_filters()" value="2" /> <label for="failed_checkbox">Failed</label>
+    <input id="pending_checkbox" name="pending_checkbox" type="checkbox" checked="checked" onchange="apply_filters()" value="3" /> <label for="pending_checkbox">Pending</label>
+  </div>
+
+  <div id="summary">
+    <p id="totals">&#160;</p>
+    <p id="duration">&#160;</p>
+  </div>
+</div>
+
+
+<div class="results">
+<div id="div_group_1" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_1" class="passed">Service SNMP</dt>
+    <script type="text/javascript">moveProgressBar('0.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be installed</span><span class='duration'>0.13366s</span></dd>
+    <script type="text/javascript">moveProgressBar('1.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be enabled</span><span class='duration'>0.00016s</span></dd>
+    <script type="text/javascript">moveProgressBar('2.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be running</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_2" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_2" class="passed">startmode</dt>
+    <script type="text/javascript">moveProgressBar('2.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;Auto&quot;</span><span class='duration'>0.00127s</span></dd>
+  </dl>
+</div>
+<div id="div_group_3" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_3" class="passed">Registry Key HKLM\SYSTEM\CurrentControlSet\Services\SNMP\Parameters\PermittedManagers</dt>
+  </dl>
+</div>
+<div id="div_group_4" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_4" class="passed">1</dt>
+    <script type="text/javascript">moveProgressBar('3.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;localhost&quot;</span><span class='duration'>0.22665s</span></dd>
+  </dl>
+</div>
+<div id="div_group_5" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_5" class="passed">2</dt>
+    <script type="text/javascript">moveProgressBar('4.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;ovr.uhc.com&quot;</span><span class='duration'>0.00013s</span></dd>
+  </dl>
+</div>
+<div id="div_group_6" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_6" class="passed">3</dt>
+    <script type="text/javascript">moveProgressBar('4.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsw0618.uhc.com&quot;</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_7" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_7" class="passed">4</dt>
+    <script type="text/javascript">moveProgressBar('5.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrp0072.uhc.com&quot;</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_8" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_8" class="passed">5</dt>
+    <script type="text/javascript">moveProgressBar('6.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrp0073.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_9" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_9" class="passed">6</dt>
+    <script type="text/javascript">moveProgressBar('6.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrp0074.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_10" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_10" class="passed">7</dt>
+    <script type="text/javascript">moveProgressBar('7.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrp0075.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_11" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_11" class="passed">8</dt>
+    <script type="text/javascript">moveProgressBar('8.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrp0076.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_12" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_12" class="passed">9</dt>
+    <script type="text/javascript">moveProgressBar('8.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrp0077.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_13" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_13" class="passed">10</dt>
+    <script type="text/javascript">moveProgressBar('9.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0090.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_14" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_14" class="passed">11</dt>
+    <script type="text/javascript">moveProgressBar('10.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0091.uhc.com&quot;</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_15" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_15" class="passed">12</dt>
+    <script type="text/javascript">moveProgressBar('10.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsls0026.uhc.com&quot;</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_16" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_16" class="passed">13</dt>
+    <script type="text/javascript">moveProgressBar('11.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsls0027.uhc.com&quot;</span><span class='duration'>0.00008s</span></dd>
+  </dl>
+</div>
+<div id="div_group_17" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_17" class="passed">14</dt>
+    <script type="text/javascript">moveProgressBar('12.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0009.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_18" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_18" class="passed">15</dt>
+    <script type="text/javascript">moveProgressBar('12.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0169.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_19" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_19" class="passed">16</dt>
+    <script type="text/javascript">moveProgressBar('13.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;ovcert.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_20" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_20" class="passed">17</dt>
+    <script type="text/javascript">moveProgressBar('14.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;ovdmzcert.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_21" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_21" class="passed">18</dt>
+    <script type="text/javascript">moveProgressBar('14.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep2860.ms.ds.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_22" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_22" class="passed">19</dt>
+    <script type="text/javascript">moveProgressBar('15.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep3835.dmzmgmt.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_23" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_23" class="passed">20</dt>
+    <script type="text/javascript">moveProgressBar('16.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep3836.dmzmgmt.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_24" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_24" class="passed">21</dt>
+    <script type="text/javascript">moveProgressBar('17.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep3059.ms.ds.uhc.com&quot;</span><span class='duration'>0.00008s</span></dd>
+  </dl>
+</div>
+<div id="div_group_25" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_25" class="passed">22</dt>
+    <script type="text/javascript">moveProgressBar('17.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep3065.ms.ds.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_26" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_26" class="passed">23</dt>
+    <script type="text/javascript">moveProgressBar('18.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0010.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_27" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_27" class="passed">24</dt>
+    <script type="text/javascript">moveProgressBar('19.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0187.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_28" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_28" class="passed">25</dt>
+    <script type="text/javascript">moveProgressBar('19.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0188.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_29" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_29" class="passed">26</dt>
+    <script type="text/javascript">moveProgressBar('20.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0170.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_30" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_30" class="passed">27</dt>
+    <script type="text/javascript">moveProgressBar('21.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0171.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_31" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_31" class="passed">28</dt>
+    <script type="text/javascript">moveProgressBar('21.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0172.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_32" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_32" class="passed">29</dt>
+    <script type="text/javascript">moveProgressBar('22.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslp0189.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_33" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_33" class="passed">30</dt>
+    <script type="text/javascript">moveProgressBar('23.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsls0063.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_34" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_34" class="passed">31</dt>
+    <script type="text/javascript">moveProgressBar('23.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apslt0053.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_35" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_35" class="passed">32</dt>
+    <script type="text/javascript">moveProgressBar('24.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsld0024.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_36" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_36" class="passed">33</dt>
+    <script type="text/javascript">moveProgressBar('25.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrs0059.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_37" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_37" class="passed">34</dt>
+    <script type="text/javascript">moveProgressBar('25.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrs0060.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_38" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_38" class="passed">35</dt>
+    <script type="text/javascript">moveProgressBar('26.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrs0066.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_39" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_39" class="passed">36</dt>
+    <script type="text/javascript">moveProgressBar('27.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsrs0067.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_40" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_40" class="passed">Registry Key HKLM\SYSTEM\CurrentControlSet\Services\SNMP\Parameters\PermittedManagers</dt>
+  </dl>
+</div>
+<div id="div_group_41" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_41" class="passed">CITRIX</dt>
+    <script type="text/javascript">moveProgressBar('27.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;citrixsnmp.uhc.com&quot;</span><span class='duration'>0.00025s</span></dd>
+  </dl>
+</div>
+<div id="div_group_42" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_42" class="passed">Registry Key HKLM\SYSTEM\CurrentControlSet\Services\SNMP\Parameters\TrapConfiguration\IntelOps</dt>
+  </dl>
+</div>
+<div id="div_group_43" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_43" class="passed">1</dt>
+    <script type="text/javascript">moveProgressBar('28.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;127.0.0.1&quot;</span><span class='duration'>0.01863s</span></dd>
+  </dl>
+</div>
+<div id="div_group_44" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_44" class="passed">2</dt>
+    <script type="text/javascript">moveProgressBar('29.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsw0618.uhc.com&quot;</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_45" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_45" class="passed">3</dt>
+    <script type="text/javascript">moveProgressBar('29.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep2860.ms.ds.uhc.com&quot;</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_46" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_46" class="passed">4</dt>
+    <script type="text/javascript">moveProgressBar('30.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep3835.dmzmgmt.uhc.com&quot;</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_47" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_47" class="passed">5</dt>
+    <script type="text/javascript">moveProgressBar('31.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep3836.dmzmgmt.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_48" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_48" class="passed">6</dt>
+    <script type="text/javascript">moveProgressBar('31.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep3059.ms.ds.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_49" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_49" class="passed">7</dt>
+    <script type="text/javascript">moveProgressBar('32.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;apsep3065.ms.ds.uhc.com&quot;</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_50" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_50" class="passed">Registry Key HKLM\SYSTEM\CurrentControlSet\Services\SNMP\Parameters\ValidCommunities</dt>
+  </dl>
+</div>
+<div id="div_group_51" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_51" class="passed">IntelOps</dt>
+    <script type="text/javascript">moveProgressBar('33.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq 16</span><span class='duration'>0.12053s</span></dd>
+  </dl>
+</div>
+<div id="div_group_52" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_52" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_52');</script>
+    <script type="text/javascript">makeYellow('example_group_52');</script>
+    <script type="text/javascript">moveProgressBar('34.0');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_53" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_53" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_53');</script>
+    <script type="text/javascript">makeYellow('example_group_53');</script>
+    <script type="text/javascript">moveProgressBar('34.6');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_54" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_54" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_54');</script>
+    <script type="text/javascript">makeYellow('example_group_54');</script>
+    <script type="text/javascript">moveProgressBar('35.3');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_55" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_55" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_55');</script>
+    <script type="text/javascript">makeYellow('example_group_55');</script>
+    <script type="text/javascript">moveProgressBar('36.0');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_56" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_56" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_56');</script>
+    <script type="text/javascript">makeYellow('example_group_56');</script>
+    <script type="text/javascript">moveProgressBar('36.7');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_57" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_57" class="passed">Task Scheduler should be running</dt>
+    <script type="text/javascript">moveProgressBar('37.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">Task Scheduler is running</span><span class='duration'>0.00010s</span></dd>
+  </dl>
+</div>
+<div id="div_group_58" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_58" class="passed">Scheduled Task &#39;chef-client&#39; should exist</dt>
+    <script type="text/javascript">moveProgressBar('38.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">Scheduled Task &#39;chef-client&#39; does exist</span><span class='duration'>0.00004s</span></dd>
+  </dl>
+</div>
+<div id="div_group_59" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_59" class="passed">Software Protection Service startup should be set to Automatic</dt>
+    <script type="text/javascript">moveProgressBar('38.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">Software Protection Service startup is set to Automatic</span><span class='duration'>0.00004s</span></dd>
+  </dl>
+</div>
+<div id="div_group_60" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_60" class="passed">Performance Logs &amp; Alerts Service startup should be Automatic</dt>
+    <script type="text/javascript">moveProgressBar('39.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">Performance Logs &amp; Alerts Service startup is set to Automatic</span><span class='duration'>0.00004s</span></dd>
+  </dl>
+</div>
+<div id="div_group_61" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_61" class="passed">Service Symantec Endpoint Protection</dt>
+    <script type="text/javascript">moveProgressBar('40.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be installed</span><span class='duration'>0.11587s</span></dd>
+    <script type="text/javascript">moveProgressBar('40.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be enabled</span><span class='duration'>0.00015s</span></dd>
+    <script type="text/javascript">moveProgressBar('41.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be running</span><span class='duration'>0.00516s</span></dd>
+  </dl>
+</div>
+<div id="div_group_62" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_62" class="passed">startmode</dt>
+    <script type="text/javascript">moveProgressBar('42.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;Auto&quot;</span><span class='duration'>0.00012s</span></dd>
+  </dl>
+</div>
+<div id="div_group_63" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_63" class="passed">Service csshst</dt>
+    <script type="text/javascript">moveProgressBar('42.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be enabled</span><span class='duration'>0.12547s</span></dd>
+    <script type="text/javascript">moveProgressBar('43.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be running</span><span class='duration'>0.00016s</span></dd>
+  </dl>
+</div>
+<div id="div_group_64" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_64" class="passed">startmode</dt>
+    <script type="text/javascript">moveProgressBar('44.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;Auto&quot;</span><span class='duration'>0.00011s</span></dd>
+  </dl>
+</div>
+<div id="div_group_65" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_65" class="passed">Snow Agent service startup type should be set to automatic</dt>
+    <script type="text/javascript">moveProgressBar('44.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">Snow Agent service startup type is set to Automatic</span><span class='duration'>0.00005s</span></dd>
+  </dl>
+</div>
+<div id="div_group_66" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_66" class="passed">Snow Agent should be running</dt>
+    <script type="text/javascript">moveProgressBar('45.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">Snow Agent is running</span><span class='duration'>0.00004s</span></dd>
+  </dl>
+</div>
+<div id="div_group_67" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_67" class="passed">UHGServer should be running</dt>
+    <script type="text/javascript">makeRed('rspec-header');</script>
+    <script type="text/javascript">makeRed('div_group_67');</script>
+    <script type="text/javascript">makeRed('example_group_67');</script>
+    <script type="text/javascript">moveProgressBar('46.2');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">UHGServer is running</span>
+      <span class="duration">0.01077s</span>
+      <div class="failure" id="failure_1">
+        <div class="message"><pre>  Failure/Error: DEFAULT_FAILURE_NOTIFIER = lambda { |failure, _opts| raise failure }
+
+    expected: &quot;UHGServer is running, or has at least a one day old log file&quot;
+         got: &quot;UHGServer in NOT running AND does not have a recent log file&quot;
+
+    (compared using ==)
+  # optum_windows_inspec-danny/controls/configuration.rb:387:in `block (3 levels) in load_with_context&#39;
+  # ./inspec:23:in `load&#39;
+  # ./inspec:23:in `&lt;main&gt;&#39;</pre></div>
+        <div class="backtrace"><pre>optum_windows_inspec-danny/controls/configuration.rb:387:in `block (3 levels) in load_with_context&#39;
+./inspec:23:in `load&#39;
+./inspec:23:in `&lt;main&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">385</span><span class="comment"># Couldn't get snippet for optum_windows_inspec-danny/controls/configuration.rb</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_68" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_68" class="passed">Pagefile should not be automatically managed</dt>
+    <script type="text/javascript">moveProgressBar('46.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">Pagefile is not automatically managed</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_69" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_69" class="passed">Pagefile should be on c: drive</dt>
+    <script type="text/javascript">moveProgressBar('47.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">Pagefile is on c: drive</span><span class='duration'>0.00004s</span></dd>
+  </dl>
+</div>
+<div id="div_group_70" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_70" class="passed">Pagefile should be system managed</dt>
+    <script type="text/javascript">moveProgressBar('48.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">Pagefile is system managed</span><span class='duration'>0.00004s</span></dd>
+  </dl>
+</div>
+<div id="div_group_71" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_71" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_72" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_72" class="passed">stdout</dt>
+    <script type="text/javascript">moveProgressBar('48.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected not to match /(?i)CN=Computers/</span><span class='duration'>0.22035s</span></dd>
+  </dl>
+</div>
+<div id="div_group_73" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_73" class="passed">General DNS Suffix Checks should pass</dt>
+    <script type="text/javascript">moveProgressBar('49.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">General DNS Suffix Checks passed</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_74" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_74" class="passed">C: drive should be &gt;= 100GB, D: drive should be &gt;= 5GB</dt>
+    <script type="text/javascript">moveProgressBar('50.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">C: is &gt;= 100GB, D: is &gt;= 5GB</span><span class='duration'>0.00004s</span></dd>
+  </dl>
+</div>
+<div id="div_group_75" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_75" class="passed">Registry Key HKLM\SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\DomainProfile</dt>
+  </dl>
+</div>
+<div id="div_group_76" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_76" class="passed">EnableFirewall</dt>
+    <script type="text/javascript">moveProgressBar('51.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq 0</span><span class='duration'>0.01265s</span></dd>
+  </dl>
+</div>
+<div id="div_group_77" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_77" class="passed">Firewall Domain Profile should allow exceptions</dt>
+    <script type="text/javascript">moveProgressBar('51.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">Firewall (Domain) allows exceptions</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_78" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_78" class="passed">Registry Key HKLM\SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\StandardProfile</dt>
+  </dl>
+</div>
+<div id="div_group_79" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_79" class="passed">EnableFirewall</dt>
+    <script type="text/javascript">moveProgressBar('52.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq 0</span><span class='duration'>0.00978s</span></dd>
+  </dl>
+</div>
+<div id="div_group_80" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_80" class="passed">Firewall Standard Profile should allow exceptions</dt>
+    <script type="text/javascript">moveProgressBar('53.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">Firewall (Standard) allows exceptions</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_81" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_81" class="passed">Primary NIC should have one gateway</dt>
+    <script type="text/javascript">moveProgressBar('53.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">Primary NIC has one gateway</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_82" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_82" class="passed">NetBIOS over TCP/IP should be disabled</dt>
+    <script type="text/javascript">moveProgressBar('54.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">NetBIOS over TCP/IP is disabled</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_83" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_83" class="passed">Registry Key HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Client</dt>
+  </dl>
+</div>
+<div id="div_group_84" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_84" class="passed">Release</dt>
+    <script type="text/javascript">moveProgressBar('55.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be &gt;= 461814</span><span class='duration'>0.04096s</span></dd>
+  </dl>
+</div>
+<div id="div_group_85" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_85" class="passed">Primary NIC DHCP should be disabled</dt>
+    <script type="text/javascript">moveProgressBar('55.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">Primary NIC DHCP is disabled</span><span class='duration'>0.00022s</span></dd>
+  </dl>
+</div>
+<div id="div_group_86" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_86" class="passed">Primary NIC DNS: &#39;Register this address in DNS&#39; should be checked</dt>
+    <script type="text/javascript">moveProgressBar('56.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">Primary NIC DNS: &#39;Register this address&#39; is checked</span><span class='duration'>0.00008s</span></dd>
+  </dl>
+</div>
+<div id="div_group_87" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_87" class="passed">LMHOSTS Lookup checkbox should be unchecked</dt>
+    <script type="text/javascript">moveProgressBar('57.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">LMHOSTS Lookup checkbox is unchecked</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_88" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_88" class="passed">IPv6 should be enabled</dt>
+    <script type="text/javascript">moveProgressBar('57.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">Primary NIC: IPv6 is enabled</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_89" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_89" class="passed">Primary NIC Speed must be 1Gbps or greater</dt>
+    <script type="text/javascript">moveProgressBar('58.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">Primary NIC Speed is 1Gbps or greater</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_90" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_90" class="passed">Primary NIC should be Full Duplex</dt>
+    <script type="text/javascript">moveProgressBar('59.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">Primary NIC is Full Duplex</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_91" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_91" class="passed">Primary NIC File and Printer Sharing should be enabled</dt>
+    <script type="text/javascript">moveProgressBar('59.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">Primary NIC File and Printer Sharing is enabled</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_92" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_92" class="passed">There should be no Primary WINS server</dt>
+    <script type="text/javascript">moveProgressBar('60.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">There is no Primary WINS server</span><span class='duration'>0.00012s</span></dd>
+  </dl>
+</div>
+<div id="div_group_93" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_93" class="passed">There should be no Primary NIC WINS Secondary server</dt>
+    <script type="text/javascript">moveProgressBar('61.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">There is no Secondary WINS server</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_94" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_94" class="passed">Primary NIC &#39;DNS Suffix for connection&#39; should be unchecked</dt>
+    <script type="text/javascript">moveProgressBar('61.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">Primary NIC &#39;DNS Suffix for connection&#39; is unchecked</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_95" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_95" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_95');</script>
+    <script type="text/javascript">makeYellow('example_group_95');</script>
+    <script type="text/javascript">moveProgressBar('62.5');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_96" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_96" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_96');</script>
+    <script type="text/javascript">makeYellow('example_group_96');</script>
+    <script type="text/javascript">moveProgressBar('63.2');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_97" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_97" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_97');</script>
+    <script type="text/javascript">makeYellow('example_group_97');</script>
+    <script type="text/javascript">moveProgressBar('63.9');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_98" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_98" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_98');</script>
+    <script type="text/javascript">makeYellow('example_group_98');</script>
+    <script type="text/javascript">moveProgressBar('64.6');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_99" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_99" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_99');</script>
+    <script type="text/javascript">makeYellow('example_group_99');</script>
+    <script type="text/javascript">moveProgressBar('65.3');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_100" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_100" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_100');</script>
+    <script type="text/javascript">makeYellow('example_group_100');</script>
+    <script type="text/javascript">moveProgressBar('65.9');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_101" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_101" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_101');</script>
+    <script type="text/javascript">makeYellow('example_group_101');</script>
+    <script type="text/javascript">moveProgressBar('66.6');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_102" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_102" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_102');</script>
+    <script type="text/javascript">makeYellow('example_group_102');</script>
+    <script type="text/javascript">moveProgressBar('67.3');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_103" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_103" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_103');</script>
+    <script type="text/javascript">makeYellow('example_group_103');</script>
+    <script type="text/javascript">moveProgressBar('68.0');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_104" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_104" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_104');</script>
+    <script type="text/javascript">makeYellow('example_group_104');</script>
+    <script type="text/javascript">moveProgressBar('68.7');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_105" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_105" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_105');</script>
+    <script type="text/javascript">makeYellow('example_group_105');</script>
+    <script type="text/javascript">moveProgressBar('69.3');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_106" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_106" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_106');</script>
+    <script type="text/javascript">makeYellow('example_group_106');</script>
+    <script type="text/javascript">moveProgressBar('70.0');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_107" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_107" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_107');</script>
+    <script type="text/javascript">makeYellow('example_group_107');</script>
+    <script type="text/javascript">moveProgressBar('70.7');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_108" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_108" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_108');</script>
+    <script type="text/javascript">makeYellow('example_group_108');</script>
+    <script type="text/javascript">moveProgressBar('71.4');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_109" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_109" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_109');</script>
+    <script type="text/javascript">makeYellow('example_group_109');</script>
+    <script type="text/javascript">moveProgressBar('72.1');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_110" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_110" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_110');</script>
+    <script type="text/javascript">makeYellow('example_group_110');</script>
+    <script type="text/javascript">moveProgressBar('72.7');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_111" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_111" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_111');</script>
+    <script type="text/javascript">makeYellow('example_group_111');</script>
+    <script type="text/javascript">moveProgressBar('73.4');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_112" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_112" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_112');</script>
+    <script type="text/javascript">makeYellow('example_group_112');</script>
+    <script type="text/javascript">moveProgressBar('74.1');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_113" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_113" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_113');</script>
+    <script type="text/javascript">makeYellow('example_group_113');</script>
+    <script type="text/javascript">moveProgressBar('74.8');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_114" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_114" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_114');</script>
+    <script type="text/javascript">makeYellow('example_group_114');</script>
+    <script type="text/javascript">moveProgressBar('75.5');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_115" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_115" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_115');</script>
+    <script type="text/javascript">makeYellow('example_group_115');</script>
+    <script type="text/javascript">moveProgressBar('76.1');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_116" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_116" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_116');</script>
+    <script type="text/javascript">makeYellow('example_group_116');</script>
+    <script type="text/javascript">moveProgressBar('76.8');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_117" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_117" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_117');</script>
+    <script type="text/javascript">makeYellow('example_group_117');</script>
+    <script type="text/javascript">moveProgressBar('77.5');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_118" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_118" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_118');</script>
+    <script type="text/javascript">makeYellow('example_group_118');</script>
+    <script type="text/javascript">moveProgressBar('78.2');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_119" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_119" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_119');</script>
+    <script type="text/javascript">makeYellow('example_group_119');</script>
+    <script type="text/javascript">moveProgressBar('78.9');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_120" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_120" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_120');</script>
+    <script type="text/javascript">makeYellow('example_group_120');</script>
+    <script type="text/javascript">moveProgressBar('79.5');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_121" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_121" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_121');</script>
+    <script type="text/javascript">makeYellow('example_group_121');</script>
+    <script type="text/javascript">moveProgressBar('80.2');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_122" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_122" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_122');</script>
+    <script type="text/javascript">makeYellow('example_group_122');</script>
+    <script type="text/javascript">moveProgressBar('80.9');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_123" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_123" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_123');</script>
+    <script type="text/javascript">makeYellow('example_group_123');</script>
+    <script type="text/javascript">moveProgressBar('81.6');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_124" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_124" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_124');</script>
+    <script type="text/javascript">makeYellow('example_group_124');</script>
+    <script type="text/javascript">moveProgressBar('82.3');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_125" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_125" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_125');</script>
+    <script type="text/javascript">makeYellow('example_group_125');</script>
+    <script type="text/javascript">moveProgressBar('82.9');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_126" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_126" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_126');</script>
+    <script type="text/javascript">makeYellow('example_group_126');</script>
+    <script type="text/javascript">moveProgressBar('83.6');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_127" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_127" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_127');</script>
+    <script type="text/javascript">makeYellow('example_group_127');</script>
+    <script type="text/javascript">moveProgressBar('84.3');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_128" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_128" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_128');</script>
+    <script type="text/javascript">makeYellow('example_group_128');</script>
+    <script type="text/javascript">moveProgressBar('85.0');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_129" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_129" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_129');</script>
+    <script type="text/javascript">makeYellow('example_group_129');</script>
+    <script type="text/javascript">moveProgressBar('85.7');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_130" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_130" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_131" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_131" class="passed">stdout.strip</dt>
+    <script type="text/javascript">moveProgressBar('86.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq &quot;Windows is Licensed&quot;</span><span class='duration'>1.86859s</span></dd>
+  </dl>
+</div>
+<div id="div_group_132" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_132" class="passed">File C:\hiberfil.sys</dt>
+    <script type="text/javascript">moveProgressBar('87.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected not to exist</span><span class='duration'>0.00159s</span></dd>
+  </dl>
+</div>
+<div id="div_group_133" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_133" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_134" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_134" class="passed">stdout.strip</dt>
+    <script type="text/javascript">moveProgressBar('87.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to cmp == &quot;There is a 5 second timeout&quot;</span><span class='duration'>0.03881s</span></dd>
+  </dl>
+</div>
+<div id="div_group_135" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_135" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_136" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_136" class="passed">stdout.strip</dt>
+    <script type="text/javascript">moveProgressBar('88.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to cmp == &quot;Send Alerts on Crash: False&quot;</span><span class='duration'>0.04873s</span></dd>
+  </dl>
+</div>
+<div id="div_group_137" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_137" class="passed">Registry Key HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation</dt>
+  </dl>
+</div>
+<div id="div_group_138" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_138" class="passed">DynamicDaylightTimeDisabled</dt>
+    <script type="text/javascript">moveProgressBar('89.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to eq 0</span><span class='duration'>0.08667s</span></dd>
+  </dl>
+</div>
+<div id="div_group_139" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_139" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_140" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_140" class="passed">stdout.strip</dt>
+    <script type="text/javascript">moveProgressBar('89.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to cmp == &quot;Powershell version is equal to or greater than 5.1&quot;</span><span class='duration'>0.00700s</span></dd>
+  </dl>
+</div>
+<div id="div_group_141" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_141" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_142" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_142" class="passed">stdout.strip</dt>
+    <script type="text/javascript">moveProgressBar('90.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to cmp == &quot;Memory dump is set to correct configuration.&quot;</span><span class='duration'>0.03165s</span></dd>
+  </dl>
+</div>
+<div id="div_group_143" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_143" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_144" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_144" class="passed">stdout.strip</dt>
+    <script type="text/javascript">moveProgressBar('91.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to cmp == &quot;HP Operations-Agent Path has correct path&quot;</span><span class='duration'>0.11561s</span></dd>
+  </dl>
+</div>
+<div id="div_group_145" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_145" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_146" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_146" class="passed">stdout.strip</dt>
+    <script type="text/javascript">moveProgressBar('91.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to cmp == &quot;HP Openview Agent is 8.60.6 or greater&quot;</span><span class='duration'>0.05532s</span></dd>
+  </dl>
+</div>
+<div id="div_group_147" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_147" class="passed">Processes opcacta</dt>
+    <script type="text/javascript">moveProgressBar('92.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to exist</span><span class='duration'>0.00014s</span></dd>
+  </dl>
+</div>
+<div id="div_group_148" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_148" class="passed">states</dt>
+    <script type="text/javascript">moveProgressBar('93.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be == [&quot;True&quot;]</span><span class='duration'>0.00010s</span></dd>
+  </dl>
+</div>
+<div id="div_group_149" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_149" class="passed">Processes opcle</dt>
+    <script type="text/javascript">moveProgressBar('93.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to exist</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_150" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_150" class="passed">states</dt>
+    <script type="text/javascript">moveProgressBar('94.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be == [&quot;True&quot;]</span><span class='duration'>0.00008s</span></dd>
+  </dl>
+</div>
+<div id="div_group_151" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_151" class="passed">Processes opcmona</dt>
+    <script type="text/javascript">moveProgressBar('95.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to exist</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_152" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_152" class="passed">states</dt>
+    <script type="text/javascript">moveProgressBar('95.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be == [&quot;True&quot;]</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_153" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_153" class="passed">Processes opcmsga</dt>
+    <script type="text/javascript">moveProgressBar('96.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to exist</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_154" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_154" class="passed">states</dt>
+    <script type="text/javascript">moveProgressBar('97.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be == [&quot;True&quot;]</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_155" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_155" class="passed">Processes opcmsgi</dt>
+    <script type="text/javascript">moveProgressBar('97.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to exist</span><span class='duration'>0.00007s</span></dd>
+  </dl>
+</div>
+<div id="div_group_156" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_156" class="passed">states</dt>
+    <script type="text/javascript">moveProgressBar('98.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">is expected to be == [&quot;True&quot;]</span><span class='duration'>0.00006s</span></dd>
+  </dl>
+</div>
+<div id="div_group_157" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_157" class="passed">Powershell</dt>
+  </dl>
+</div>
+<div id="div_group_158" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_158" class="passed">stdout.strip</dt>
+    <script type="text/javascript">makeRed('div_group_158');</script>
+    <script type="text/javascript">makeRed('example_group_158');</script>
+    <script type="text/javascript">moveProgressBar('99.3');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">is expected to eq &quot;Chef-client is 14.12.9 or newer&quot;</span>
+      <span class="duration">3.09740s</span>
+      <div class="failure" id="failure_2">
+        <div class="message"><pre>  Failure/Error: DEFAULT_FAILURE_NOTIFIER = lambda { |failure, _opts| raise failure }
+
+    expected: &quot;Chef-client is 14.12.9 or newer&quot;
+         got: &quot;&quot;
+
+    (compared using ==)
+  # optum_windows_inspec-danny/controls/software.rb:118:in `block (3 levels) in load_with_context&#39;
+  # ./inspec:23:in `load&#39;
+  # ./inspec:23:in `&lt;main&gt;&#39;</pre></div>
+        <div class="backtrace"><pre>optum_windows_inspec-danny/controls/software.rb:118:in `block (3 levels) in load_with_context&#39;
+./inspec:23:in `load&#39;
+./inspec:23:in `&lt;main&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">116</span><span class="comment"># Couldn't get snippet for optum_windows_inspec-danny/controls/software.rb</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_159" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_159" class="passed">No-op</dt>
+    <script type="text/javascript">makeYellow('div_group_159');</script>
+    <script type="text/javascript">makeYellow('example_group_159');</script>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">Skipped control due to only_if condition. (PENDING: Not yet implemented)</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>6.53408 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "147 examples, 2 failures, 41 pending";</script>
+</div>
+</div>
+</body>
+</html>

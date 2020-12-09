@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<CommonInstallSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TaskSettings>
+    <ArrayOfTaskSettings>
+      <TaskSettings xsi:type="RightFaxShutdownSettings" />
+      <TaskSettings xsi:type="InstallMsmqSettings">
+        <Mode>Typical</Mode>
+      </TaskSettings>
+      <TaskSettings xsi:type="PrepareSqlServerSettings">
+        <InstallType>UseExisting</InstallType>
+        <IsRecording>true</IsRecording>
+      </TaskSettings>
+      <TaskSettings xsi:type="ReservePortsSettings">
+        <Mode>Automatic</Mode>
+      </TaskSettings>
+      <TaskSettings xsi:type="ActivationChoices">
+        <EmailAddress>LICENSE EMAIL GOES HERE</EmailAddress>
+        <WantsEvaluation>false</WantsEvaluation>
+        <EvalContactName />
+        <EvalContactEmailAddress />
+        <EvalContactPhone />
+        <EvalDecisionMakerTitle />
+        <EvalResellerName />
+        <EvalTimePeriod />
+      </TaskSettings>
+    </ArrayOfTaskSettings>
+  </TaskSettings>
+  <InstallFolder>E:\Program Files (x86)\RightFax</InstallFolder>
+  <RemoteImageFolder>E:\Program Files (x86)\RightFax\Image</RemoteImageFolder>
+  <ServiceAccount>
+    <Username>ms\arcnonprd</Username>
+    <Password>5394F350141348A2ED48A5B03E9</Password>
+    <Auth>User</Auth>
+    <UsernameResolved>ms\arcnonprd</UsernameResolved>
+  </ServiceAccount>
+  <CollectiveDataRootPath>E:\Program Files (x86)\RightFax</CollectiveDataRootPath>
+  <SqlConnectionStringInfo>
+    <CommonConnectionString>Data Source=dbvet70974cls;Initial Catalog=RF202DEVPOC2;Application Name="{SQL Server Native Client 11.0}"</CommonConnectionString>
+    <CommonInitialCatalog>RF202DEVPOC2</CommonInitialCatalog>
+    <CommonDataSource>dbvet70974cls</CommonDataSource>
+    <UserConnectionStringFragment>Integrated Security=False;User ID=rfsqlpocuser2;Password=4604C23C64596124363D42E653232540C4445013E2</UserConnectionStringFragment>
+    <AdminConnectionStringFragment>Integrated Security=False;User ID=rfsqlpocuser2;Password=4604C23C64596124363D42E653232540C4445013E2</AdminConnectionStringFragment>
+  </SqlConnectionStringInfo>
+  <SqlInstallType>UseExisting</SqlInstallType>
+  <DatabaseConfigurationMode>JoinShared</DatabaseConfigurationMode>
+  <FeatureChangeRequests>
+    <FeatureChangeRequest>
+      <Feature>AdminUtilsFeature</Feature>
+      <Guid>54fc6323-4d86-413d-84e3-5c952c2ad93a</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>ServerComponentsFeature</Feature>
+      <Guid>a9ba7d95-cfae-4228-a448-02247bfff767</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>ServerFeature</Feature>
+      <Guid>3e355edf-d7e0-46cb-95dc-b6f5a245d9f9</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>AutoReplyFeature</Feature>
+      <Guid>1d9b3d38-2f30-4f6a-acc3-cf8fcb5d5e4b</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>WorkServerFeature</Feature>
+      <Guid>e026aa7c-77a8-4312-80bd-7be31a6e0ec2</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>AlertingFeature</Feature>
+      <Guid>34f367dd-4681-4f6f-958a-fcafe6dba678</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>WebAppsFeature</Feature>
+      <Guid>5c3edd5c-78f3-4cf5-b4ee-3da35d41592d</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>GalagaWebApiFeature</Feature>
+      <Guid>ad35bdd4-f975-4bfa-b6d1-7c090933276d</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>GalagaWebAdminFeature</Feature>
+      <Guid>fe319da4-83ed-42dc-8b1b-908adefc2db0</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>ClientFeature</Feature>
+      <Guid>1f0bfbec-f9d1-465b-88ea-3cc30ebd7663</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>FaxUtilFeature</Feature>
+      <Guid>0b9f3340-b367-43bd-94a6-5c0198711af9</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+    <FeatureChangeRequest>
+      <Feature>EFMFeature</Feature>
+      <Guid>3bfefa9b-5fdb-43a8-8c09-c5c174e54f69</Guid>
+      <Change>Add</Change>
+    </FeatureChangeRequest>
+  </FeatureChangeRequests>
+  <Suid>LICENSE SUID GOES HERE</Suid>
+  <Language>English</Language>
+  <WebAppConfigurationMode>Automatic</WebAppConfigurationMode>
+  <WebAppSite>Default Web Site</WebAppSite>
+  <WebAppEnableNTAuth>false</WebAppEnableNTAuth>
+  <ImageEncryption>false</ImageEncryption>
+  <ImageHighResolution>false</ImageHighResolution>
+  <RightFaxServerProtocol>0</RightFaxServerProtocol>
+</CommonInstallSettings>

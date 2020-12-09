@@ -1,0 +1,47 @@
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+
+platforms:
+  - name: centos-6
+  - name: centos-7
+  - name: debian-8
+  - name: debian-9
+  - name: oracle-7
+  - name: debian-8
+  - name: fedora-28
+  - name: opensuse-leap-42
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: amazonlinux
+    driver_config:
+      box: mvbcoding/awslinux
+
+suites:
+  - name: create
+    run_list:
+      - recipe[test::create]
+  - name: create_thin
+    excludes:
+    - debian-8
+    run_list:
+      - recipe[test::create_thin]
+  - name: resize
+    run_list:
+      - recipe[test::create]
+      - recipe[test::resize]
+  - name: resize_thin
+    excludes:
+    - debian-8
+    run_list:
+      - recipe[test::create_thin]
+      - recipe[test::resize_thin]
+  - name: resize_thin_pool_meta_data
+    excludes:
+    - debian-8
+    run_list:
+      - recipe[test::create_thin]
+      - recipe[test::resize_thin_pool_meta_data]

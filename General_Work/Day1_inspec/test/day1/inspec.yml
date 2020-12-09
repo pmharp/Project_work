@@ -1,0 +1,10 @@
+name: day One
+title: Inspec tests for Initial devices builds
+maintainer: Iac Engineers
+copyright: Iac Engineers
+copyright_email: SED-Williams_DL@ds.uhc.com
+license: Apache-2.0
+summary: An InSpec Compliance Profile
+version: 0.1.0
+supports:
+  platform: os

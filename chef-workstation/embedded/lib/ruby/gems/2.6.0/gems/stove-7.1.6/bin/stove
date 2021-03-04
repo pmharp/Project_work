@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-$:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
-require 'stove'
-Stove::Cli.new(ARGV.dup).execute!

@@ -1,2 +1,0 @@
-@ECHO OFF
-"%~dpn0.exe" %*
